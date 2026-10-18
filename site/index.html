@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="鈴鹿賽車場（モートピア）即時設施等候時間、運休名單、當日營業時間與票價：官方 アトラクション営業案内 資料整理，每 5 分鐘更新。非官方。">
 <title>鈴鹿賽車場 モートピア 即時狀況 | Suzuka Circuit Wait Times</title>
+<link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23dc2626'/><path d='M6 21h20l-3-8H9z' fill='%23fff'/></svg>">
 <style>
   :root{--bg:#0f172a;--card:#1e293b;--card2:#24334a;--text:#e2e8f0;--sub:#94a3b8;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--blue:#3b82f6;--border:#334155;--accent:#dc2626}
@@ -58,6 +59,26 @@
   .days tr.today{background:rgba(59,130,246,.13)}
   .days tr.today td:first-child{font-weight:700;color:#93c5fd}
   .note{font-size:.68rem;color:var(--sub);margin:8px 2px 0;line-height:1.65}
+  /* 地圖 */
+  #map{height:46vh;min-height:280px;border-radius:13px;border:1px solid var(--border);margin:12px 0 2px;z-index:1;background:#0b1220}
+  #map .leaflet-tile{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.9) saturate(.85)}
+  #map .leaflet-container{background:#0b1220}
+  .pin{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;border-radius:9px;padding:1px 6px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.35)}
+  .pin.short{background:#15803d}.pin.mid{background:#b45309}.pin.long{background:#b91c1c}.pin.none{background:#475569}
+  .pin.route{outline:2px solid #fca5a5;outline-offset:1px}
+  .pin.fac{background:#334155;border-radius:5px;font-weight:600}
+  .area-label{font-size:0.68rem;font-weight:600;color:#e2e8f0;background:rgba(15,23,42,.72);border:1px solid rgba(148,163,184,.5);border-radius:7px;padding:1px 6px;white-space:nowrap}
+  .mapnote{font-size:.68rem;color:var(--sub);margin:6px 2px 0;line-height:1.6}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;margin:6px 2px 0;font-size:.68rem;color:var(--sub)}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:4px;margin-right:4px;vertical-align:-1px}
+  .locctl{display:flex;align-items:center;gap:6px;font:inherit;font-size:.78rem;font-weight:600;
+    padding:7px 11px;border-radius:10px;background:var(--card);border:1px solid var(--border);
+    color:var(--text);cursor:pointer;box-shadow:0 2px 9px rgba(0,0,0,.4)}
+  .locctl:hover{border-color:var(--blue)}
+  .locctl .ic{font-size:.92rem;line-height:1}
+  .locctl.on{border-color:var(--green);color:#86efac}
+  .locctl.err{border-color:var(--red);color:#fca5a5}
+  .locctl.busy{opacity:.65;cursor:progress}
   footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--border);font-size:.7rem;color:var(--sub);line-height:1.7}
   footer a{color:var(--blue);text-decoration:none}
   a.official{display:inline-block;margin-top:8px;font-size:.75rem;padding:6px 11px;border-radius:9px;background:var(--card);border:1px solid var(--border);color:var(--text);text-decoration:none}
@@ -81,6 +102,17 @@
     <button class="chip" data-filter="long">30 分以上<span class="n" data-n="long"></span></button>
   </div>
 
+  <h2>園區地圖（等候時間 + 你目前位置）</h2>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i style="background:#15803d"></i>≤14 分</span>
+    <span><i style="background:#b45309"></i>15–29 分</span>
+    <span><i style="background:#b91c1c"></i>30 分以上／運休</span>
+    <span><i style="background:#475569"></i>未公佈</span>
+    <span><i style="background:#fca5a5"></i>你行程指定（紅框）</span>
+    <span><i style="background:#334155"></i>園區設施</span>
+  </div>
+  <div class="mapnote" id="mapnote">地圖載入中…</div>
   <div id="suspend"></div>
 
   <h2>設施等候時間（官方「待ち時間」）</h2>
@@ -100,6 +132,7 @@
   </footer>
 </div>
 
+<script src="vendor/leaflet.js"></script>
 <script>
 (() => {
   const $ = (s) => document.querySelector(s);
@@ -167,6 +200,7 @@
     if (state.filter === 'long') rows = rows.filter((a) => a.wait != null && a.wait >= 30);
     $('#list').innerHTML = rows.length ? rows.map(rideHTML).join('')
       : '<div class="box">冇符合條件嘅設施。</div>';
+    if (map) drawMap();
   }
 
   function renderHead() {
@@ -202,6 +236,148 @@
       : '走勢線：樣本累積中（每 5 分鐘一個；2 個樣本先出線、3 個先有變長／變短標籤）。';
   }
 
+  // ── 地圖（Leaflet + OSM；座標由 build_geo.py 生成，來源 OpenStreetMap）──
+  let map = null, pinLayer = null, facLayer = null, meMarker = null, meAcc = null, meCtlBtn = null, locCtlAdded = false;
+
+  function drawMap() {
+    const g = (DATA && DATA.geo) || null;
+    const note = $('#mapnote');
+    if (!g || !g.center || !window.L) {
+      if (note) note.textContent = '地圖暫時唔可用（座標或 Leaflet 未載入）；下面清單照樣可用。';
+      return;
+    }
+    if (!map) {
+      map = L.map('map', { scrollWheelZoom: false, zoomControl: true }).setView(g.center, 17);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19, attribution: '© OpenStreetMap contributors',
+      }).addTo(map);
+      if ((g.outline || []).length > 3) {
+        L.polygon(g.outline, { color: '#f87171', weight: 2, fillColor: '#f87171', fillOpacity: .07, interactive: false }).addTo(map);
+      }
+      L.circleMarker(g.center, { radius: 4, color: '#f7d117', weight: 2, fillOpacity: .9 })
+        .addTo(map).bindPopup('鈴鹿サーキット モートピア（園區中心）');
+      pinLayer = L.layerGroup().addTo(map);
+      facLayer = L.layerGroup().addTo(map);
+      if (!locCtlAdded) { locCtlAdded = true; new LocCtl().addTo(map); }
+    }
+    pinLayer.clearLayers(); facLayer.clearLayers();
+    const closed = !(DATA.park || {}).open;
+    let located = 0;
+    (DATA.attractions || []).forEach((a) => {
+      if (!a.lat) return;
+      located++;
+      const cls = closed ? 'none' : (a.wait == null ? 'none' : a.wait >= 30 ? 'long' : a.wait >= 15 ? 'mid' : 'short');
+      const label = closed ? '—' : (a.wait == null ? '?' : a.wait === 0 ? '即入' : `${a.wait}′`);
+      L.marker([a.lat, a.lon], {
+        icon: L.divIcon({ className: '', html: `<span class="pin ${cls}${a.isRoute ? ' route' : ''}">${esc(label)}</span>`, iconSize: [30, 18], iconAnchor: [15, 9] }),
+        title: `${a.no} ${a.name}`,
+      }).addTo(pinLayer).bindPopup(
+        `<b>${esc(a.no)} ${esc(a.name)}</b><br>${esc(a.nameEn || '')}<br>`
+        + (closed ? '園區已閉園' : (a.wait == null ? '官方未公佈等候時間' : a.wait === 0 ? '開放・即時可入' : `等候 ${a.wait} 分以内`))
+        + (a.rideMin ? `<br>乗車時間 ${esc(a.rideMin)}` : '')
+        + (a.isRoute ? '<br><b>你行程指定</b>' : '')
+        + (a.geoApprox ? '<br><span style="opacity:.75">位置：同一場地近似對照</span>' : ''));
+    });
+    (g.facilities || []).forEach((f) => {
+      L.marker([f.lat, f.lon], {
+        icon: L.divIcon({ className: '', html: `<span class="pin fac">${esc(f.name.split('（')[0])}</span>`, iconSize: [30, 18], iconAnchor: [15, 9] }),
+        title: f.name,
+      }).addTo(facLayer).bindPopup(`<b>${esc(f.name)}</b><br><span style="opacity:.8">園區設施（OpenStreetMap）</span>`);
+    });
+    if (note) {
+      note.innerHTML = `已定位 <b>${located}/${g.total}</b> 項機動遊戲（座標：${esc(g.source)}）；未定位嘅只喺下面清單顯示，唔會亂放點。`
+        + ` 紅框＝你行程指定。`;
+    }
+  }
+
+  // ── 目前位置（Geolocation API；座標只留喺你部機，本站冇後端、唔會上傳）──
+  function hav(a, b, c, d) {
+    const R = 6371000, r = Math.PI / 180;
+    const dLat = (c - a) * r, dLon = (d - b) * r;
+    const s = Math.sin(dLat / 2) ** 2 + Math.cos(a * r) * Math.cos(c * r) * Math.sin(dLon / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(s));
+  }
+  const fmtDist = (m) => (m < 1000 ? `${Math.round(m)} 米` : `${(m / 1000).toFixed(m < 10000 ? 2 : 1)} 公里`);
+  const setLocNote = (html) => { const n = $('#mapnote'); if (n) n.innerHTML = html; };
+
+  function nearestFrom(lat, lon, list, nameOf) {
+    let best = null;
+    (list || []).forEach((x) => {
+      if (!x.lat) return;
+      const d = hav(lat, lon, x.lat, x.lon);
+      if (!best || d < best.d) best = { d, name: nameOf(x) };
+    });
+    return best;
+  }
+  function inPark(lat, lon) {
+    const poly = ((DATA.geo || {}).outline) || [];
+    if (poly.length < 3) return false;
+    let inside = false;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      const yi = poly[i][0], xi = poly[i][1], yj = poly[j][0], xj = poly[j][1];
+      if ((xi > lon) !== (xj > lon) && lat < (yj - yi) * (lon - xi) / (xj - xi) + yi) inside = !inside;
+    }
+    return inside;
+  }
+
+  function showMe(lat, lon, acc) {
+    if (!map) return;
+    if (meAcc) { map.removeLayer(meAcc); meAcc = null; }
+    if (meMarker) { map.removeLayer(meMarker); meMarker = null; }
+    meAcc = L.circle([lat, lon], { radius: Math.max(acc || 0, 20), color: '#3b82f6', weight: 1, fillColor: '#3b82f6', fillOpacity: .1, interactive: false }).addTo(map);
+    meMarker = L.circleMarker([lat, lon], { radius: 7, color: '#fff', weight: 3, fillColor: '#3b82f6', fillOpacity: 1 }).addTo(map);
+    const g = DATA.geo || {};
+    const centre = g.center ? hav(lat, lon, g.center[0], g.center[1]) : null;
+    const near = nearestFrom(lat, lon, DATA.attractions, (a) => `${a.no} ${a.name}`);
+    const gate = nearestFrom(lat, lon, g.facilities, (f) => f.name);
+    const isIn = inPark(lat, lon);
+    meMarker.bindPopup(`<b>📱 你目前位置</b><br>準確度約 ±${Math.round(acc || 0)} 米`
+      + (centre == null ? '' : `<br>距離園區中心 <b>${fmtDist(centre)}</b>`)
+      + (centre != null && centre < 5000 && near ? `<br>最近設施：${esc(near.name)}（${fmtDist(near.d)}）` : '')).openPopup();
+    map.flyTo([lat, lon], centre != null && centre < 1500 ? 17 : 16, { duration: .9 });
+    if (meCtlBtn) { meCtlBtn.classList.remove('busy', 'err'); meCtlBtn.classList.add('on'); meCtlBtn.disabled = false; }
+    const far = centre != null && centre > 5000;      // 距離遠嘅時候唔講「最近設施」（冇意義）
+    setLocNote(`📱 <b>已顯示你目前位置</b>（地圖藍點，準確度約 ±${Math.round(acc || 0)} 米）`
+      + (isIn ? '＝已喺園區範圍內。' : (centre == null ? '' : `；距離園區中心 <b>${fmtDist(centre)}</b>。`))
+      + (!far && near ? `最近設施：<b>${esc(near.name)}</b>（${fmtDist(near.d)}，直線距離）。` : '')
+      + (!far && gate ? `最近園區設施：${esc(gate.name)}（${fmtDist(gate.d)}）。` : '')
+      + `位置由你部機嘅瀏覽器直接取得，唔會上傳或儲存。再按一次可更新。`);
+  }
+
+  function locErr(e) {
+    if (meCtlBtn) { meCtlBtn.classList.remove('busy'); meCtlBtn.classList.add('err'); meCtlBtn.disabled = false; }
+    const msg = e.code === 1
+      ? '你未俾位置權限。撳網址欄嘅鎖頭／設定，將「位置」改成「允許」，再按一次。'
+      : e.code === 2 ? '暫時攞唔到位置（室內訊號弱或手機定位未開）。行出戶外或開返 GPS 再試。'
+      : '定位等太耐（逾時）。再按一次試下。';
+    setLocNote(`📱 <b>攞唔到你嘅位置</b>：${msg}`);
+  }
+
+  function locateMe() {
+    if (!meCtlBtn) return;
+    if (!navigator.geolocation) { setLocNote('📱 此瀏覽器唔支援定位；用手機 Chrome／Safari 開本頁就得。'); return; }
+    if (!window.isSecureContext) { setLocNote('📱 定位功能只喺 HTTPS 網址生效（用 suzuka.we1co.me 開本頁）。'); return; }
+    meCtlBtn.classList.remove('on', 'err'); meCtlBtn.classList.add('busy'); meCtlBtn.disabled = true;
+    setLocNote('📱 定位中…（第一次用手機會彈權限視窗，請按「允許」）');
+    navigator.geolocation.getCurrentPosition(
+      (p) => showMe(p.coords.latitude, p.coords.longitude, p.coords.accuracy),
+      locErr, { enableHighAccuracy: true, timeout: 12000, maximumAge: 20000 });
+  }
+
+  const LocCtl = L.Control.extend({
+    options: { position: 'bottomright' },
+    onAdd() {
+      const b = L.DomUtil.create('button', 'locctl');
+      b.type = 'button';
+      b.innerHTML = '<span class="ic">📱</span>我的位置';
+      b.title = '顯示我目前位置（要允許定位權限）';
+      L.DomEvent.disableClickPropagation(b);
+      L.DomEvent.on(b, 'click', locateMe);
+      meCtlBtn = b;
+      return b;
+    },
+  });
+
   document.querySelectorAll('.chip[data-filter]').forEach((c) => c.addEventListener('click', () => {
     document.querySelectorAll('.chip[data-filter]').forEach((x) => x.classList.toggle('active', x === c));
     state.filter = c.dataset.filter; render();
@@ -210,7 +386,7 @@
   function load() {
     fetch(`data/suzuka.json?cb=${Date.now()}`)
       .then((r) => r.json())
-      .then((j) => { DATA = j; renderHead(); render(); })
+      .then((j) => { DATA = j; renderHead(); render(); drawMap(); })
       .catch(() => { $('#updated').textContent = '資料載入失敗，請稍後再試。'; });
   }
   load();

@@ -41,7 +41,22 @@ ROUTE_KEYWORDS = ["チクタクトレイン", "コチラドライビングスク
                   "アドベンボート フロンティア", "アドベンボート・フロンティア",
                   "サーキットホイール", "ピンキーバイク"]
 
+GEO_FILE = os.path.join(HERE, "data", "geo.json")
+
 REQS = 0
+
+
+def load_geo() -> dict:
+    """園區座標表（build_geo.py 生成）；冇檔案／壞檔就當冇座標，地圖自動唔顯示。"""
+    try:
+        with open(GEO_FILE, encoding="utf-8") as fh:
+            g = json.load(fh)
+        return g.get("located") or {}
+    except Exception:
+        return {}
+
+
+GEO = load_geo()
 
 
 def get(url, timeout=30, retries=2):
@@ -185,6 +200,24 @@ def save_history(hist):
     os.replace(tmp, HIST)
 
 
+def geo_meta(attractions) -> dict:
+    """地圖 metadata：園區中心、輪廓、實用設施、已定位數量。"""
+    try:
+        with open(GEO_FILE, encoding="utf-8") as fh:
+            g = json.load(fh)
+    except Exception:
+        return {}
+    located = sum(1 for a in attractions if a.get("lat"))
+    return {
+        "center": g.get("center"),
+        "source": g.get("source"),
+        "outline": g.get("outline") or [],
+        "facilities": g.get("facilities") or [],
+        "located": located,
+        "total": len(attractions),
+    }
+
+
 def fmt_hhmm(iso):
     return iso
 
@@ -230,6 +263,11 @@ def main() -> int:
     for a in attractions:
         a["isRoute"] = any(k.replace(" ", "").replace("・", "") in (a["name"] or "").replace(" ", "").replace("・", "")
                            for k in ROUTE_KEYWORDS)
+        g = GEO.get((a.get("no") or "").strip())
+        if g:
+            a["lat"], a["lon"] = g["lat"], g["lon"]
+            if g.get("approx"):
+                a["geoApprox"] = True
 
     payload = {
         "updatedJst": now.strftime("%Y-%m-%d %H:%M"),
@@ -250,6 +288,7 @@ def main() -> int:
         "days": [days[k] for k in sorted(days)],
         "history": [{"t": k, "data": hist[k]} for k in shown],
         "historyStats": {"samples": len(keys), "shown": len(shown), "since": keys[0] if keys else ""},
+        "geo": geo_meta(attractions),
         "sources": ["apps.mobilityland.co.jp（アトラクション営業・待ち時間案内）",
                     "suzukacircuit.jp/park/fee（營業時間・價格）"],
     }

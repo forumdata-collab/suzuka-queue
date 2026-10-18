@@ -31,9 +31,10 @@ export CLOUDFLARE_ACCOUNT_ID="${CF_ACCOUNT_ID:-}"
 # 只部署 index.html + data/suzuka.json（唔會公開 fetch 腳本／README／history）
 STAGE=$(mktemp -d)
 trap 'rm -rf "$STAGE"' EXIT
-mkdir -p "$STAGE/data"
+mkdir -p "$STAGE/data" "$STAGE/vendor"
 cp site/index.html "$STAGE/"
 cp site/data/suzuka.json "$STAGE/data/"
+cp site/vendor/leaflet.js site/vendor/leaflet.css "$STAGE/vendor/"
 
 for attempt in 1 2 3; do
   OUT2=$(env -u http_proxy -u https_proxy -u HTTP_PROXY -u HTTPS_PROXY \
