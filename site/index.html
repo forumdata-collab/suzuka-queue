@@ -6,6 +6,7 @@
 <meta name="description" content="鈴鹿賽車場（モートピア）即時設施等候時間、運休名單、當日營業時間與票價：官方 アトラクション営業案内 資料整理，每 5 分鐘更新。非官方。">
 <title>鈴鹿賽車場 モートピア 即時狀況 | Suzuka Circuit Wait Times</title>
 <link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="vendor/MarkerCluster.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23dc2626'/><path d='M6 21h20l-3-8H9z' fill='%23fff'/></svg>">
 <style>
   :root{--bg:#0f172a;--card:#1e293b;--card2:#24334a;--text:#e2e8f0;--sub:#94a3b8;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--blue:#3b82f6;--border:#334155;--accent:#dc2626}
@@ -68,6 +69,13 @@
   .pin.short{background:#15803d}.pin.mid{background:#b45309}.pin.long{background:#b91c1c}.pin.none{background:#475569}
   .pin.route{outline:2px solid #fca5a5;outline-offset:1px}
   .pin.est{outline:2px dashed #e2e8f0;outline-offset:1px;opacity:.9}
+  /* 點太多時先聚成一團（Leaflet.markercluster）：拉近就自動散開 */
+  .mk{display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:12px;font-weight:700;color:#0b1220;
+      background:#e2e8f0;border:2px solid #94a3b8;box-shadow:0 1px 7px rgba(0,0,0,.6)}
+  .mk.route{background:#fecaca;border-color:#f87171;color:#7f1d1d}
+  .mk.closed{background:#cbd5e1}
+  .mk span{line-height:1}
+  .marker-cluster-anim .leaflet-marker-icon,.marker-cluster-anim .leaflet-marker-shadow{transition:transform .22s ease-out,opacity .22s ease-in}
   .pin.fac{background:#334155;border-radius:5px;font-weight:600}
   .area-label{font-size:0.68rem;font-weight:600;color:#e2e8f0;background:rgba(15,23,42,.72);border:1px solid rgba(148,163,184,.5);border-radius:7px;padding:1px 6px;white-space:nowrap}
   .mapnote{font-size:.68rem;color:var(--sub);margin:6px 2px 0;line-height:1.6}
@@ -137,6 +145,7 @@
 </div>
 
 <script src="vendor/leaflet.js"></script>
+<script src="vendor/leaflet.markercluster.js"></script>
 <script>
 (() => {
   const $ = (s) => document.querySelector(s);
@@ -243,6 +252,8 @@
   // ── 地圖（Leaflet + OSM；座標由 build_geo.py 生成，來源 OpenStreetMap）──
   let map = null, pinLayer = null, facLayer = null, meMarker = null, meAcc = null, meCtlBtn = null, locCtlAdded = false;
 
+  let closedState = false;
+
   function drawMap() {
     const g = (DATA && DATA.geo) || null;
     const note = $('#mapnote');
@@ -260,12 +271,30 @@
       }
       L.circleMarker(g.center, { radius: 4, color: '#f7d117', weight: 2, fillOpacity: .9 })
         .addTo(map).bindPopup('鈴鹿サーキット モートピア（園區中心）');
-      pinLayer = L.layerGroup().addTo(map);
+      // 設施點太多會疊住 → 用 markercluster：縮細睇係一團，拉近（zoom 18）就散開，
+      // 同一位置（例如①同②相距 2 米）用 spiderfy 攤開，唔會少咗個點。
+      pinLayer = (L.markerClusterGroup ? L.markerClusterGroup({
+        maxClusterRadius: 40,          // 40px 內嘅點先聚埋；拉近 = 像素距離變大 = 自動散開
+        spiderfyOnMaxZoom: true,       // 真係同一個位（例如①同②相距 2 米）→ 撳一下攤成一個圈
+        showCoverageOnHover: false,
+        zoomToBoundsOnClick: true,
+        removeOutsideVisibleBounds: true,
+        iconCreateFunction(cluster) {
+          const kids = cluster.getAllChildMarkers();
+          const route = kids.some((m) => (m.options.icon && m.options.icon.options.html || '').includes('route'));
+          const n = cluster.getChildCount();
+          const size = n < 5 ? 30 : n < 10 ? 34 : 38;
+          const cls = 'mk' + (route ? ' route' : '') + (closedState ? ' closed' : '');
+          return L.divIcon({ html: `<span class="${cls}" style="width:${size}px;height:${size}px"><span>${n}</span></span>`,
+                             className: '', iconSize: [size, size], iconAnchor: [size / 2, size / 2] });
+        },
+      }).addTo(map) : L.layerGroup().addTo(map));
       facLayer = L.layerGroup().addTo(map);
       if (!locCtlAdded) { locCtlAdded = true; new LocCtl().addTo(map); }
     }
     pinLayer.clearLayers(); facLayer.clearLayers();
     const closed = !(DATA.park || {}).open;
+    closedState = closed;
     let located = 0;
     (DATA.attractions || []).forEach((a) => {
       if (!a.lat) return;
@@ -292,7 +321,8 @@
     if (note) {
       const sb = g.sourceBreakdown || {};
       note.innerHTML = `已定位 <b>${located}/${g.total}</b> 項機動遊戲 — 官方數位地圖 ${sb.official ?? '—'}、Google 地圖 ${sb.gmaps ?? '—'}、OpenStreetMap ${sb.osm ?? '—'}、官方分區中心 ${sb.area ?? 0}`
-        + `（座標來源：${esc(g.source)}）。<b>虛線框</b>＝位置為近似／分區中心，唔係實際位置；紅框＝你行程指定。`;
+        + `（座標來源：${esc(g.source)}）。<b>虛線框</b>＝位置為近似／分區中心，唔係實際位置；紅框＝你行程指定。`
+        + `點太多時會先聚成<span style="color:#e5e7eb">灰色圓圈</span>（數字＝幾個），<b>拉近就散開</b>、撳圓圈即放大；紅圈＝入面有你行程指定嘅設施。`;
     }
   }
 

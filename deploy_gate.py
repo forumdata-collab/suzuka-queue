@@ -20,7 +20,8 @@ JST = ZoneInfo("Asia/Tokyo")
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "site", "data", "suzuka.json")
 STATE = os.path.join(HERE, "cache", "deploy_digest.txt")
-FRONTEND = ("index.html", "vendor/leaflet.js", "vendor/leaflet.css")
+FRONTEND = ("index.html", "vendor/leaflet.js", "vendor/leaflet.css",
+            "vendor/leaflet.markercluster.js", "vendor/MarkerCluster.css")
 BUCKET_MIN = 10
 
 

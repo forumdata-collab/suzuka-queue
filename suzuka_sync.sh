@@ -34,7 +34,7 @@ trap 'rm -rf "$STAGE"' EXIT
 mkdir -p "$STAGE/data" "$STAGE/vendor"
 cp site/index.html "$STAGE/"
 cp site/data/suzuka.json "$STAGE/data/"
-cp site/vendor/leaflet.js site/vendor/leaflet.css "$STAGE/vendor/"
+cp site/vendor/leaflet.js site/vendor/leaflet.css site/vendor/leaflet.markercluster.js site/vendor/MarkerCluster.css "$STAGE/vendor/"
 
 for attempt in 1 2 3; do
   OUT2=$(env -u http_proxy -u https_proxy -u HTTP_PROXY -u HTTPS_PROXY \
