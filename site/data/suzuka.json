@@ -1,0 +1,587 @@
+{
+ "updatedJst": "2026-10-18 13:34",
+ "updatedHkt": "2026-10-18 12:34",
+ "park": {
+  "name": "Suzuka Circuit MOTOPIA",
+  "nameZh": "鈴鹿賽車場・モートピア",
+  "date": "2026-10-18",
+  "dateText": "10月18日（日）",
+  "open": true,
+  "hoursOpen": "9:30",
+  "hoursClose": "17:30",
+  "entryPrice": "入園券：2,200円",
+  "passportPrice": "パークパスポート：5,300円"
+ },
+ "suspend": {
+  "all": true,
+  "text": "全アトラクション通常通り運行しております。",
+  "items": []
+ },
+ "attractions": [
+  {
+   "no": "①",
+   "name": "コチラドライビングスクール",
+   "nameEn": "Kochira's Driving School",
+   "rideMin": "約5分",
+   "wait": 10,
+   "url": "https://www.suzukacircuit.jp/park/attraction/driving-school/",
+   "isRoute": true
+  },
+  {
+   "no": "②",
+   "name": "チクタクトレイン",
+   "nameEn": "Tic-Tac Train",
+   "rideMin": "約4分",
+   "wait": 30,
+   "url": "https://www.suzukacircuit.jp/park/attraction/tic-tac-train/",
+   "isRoute": true
+  },
+  {
+   "no": "③",
+   "name": "テストフライト",
+   "nameEn": "Test Flight",
+   "rideMin": "約3分",
+   "wait": 15,
+   "url": "https://www.suzukacircuit.jp/park/attraction/test-flight/",
+   "isRoute": false
+  },
+  {
+   "no": "④",
+   "name": "プッチパワーショベル",
+   "nameEn": "Putti Power Shovel",
+   "rideMin": "約3分",
+   "wait": 30,
+   "url": "https://www.suzukacircuit.jp/park/attraction/putti-power-shovel/",
+   "isRoute": false
+  },
+  {
+   "no": "⑤",
+   "name": "プッチパトロール",
+   "nameEn": "Putti Patrol",
+   "rideMin": "約2分",
+   "wait": 20,
+   "url": "https://www.suzukacircuit.jp/park/attraction/putti-patrol/",
+   "isRoute": false
+  },
+  {
+   "no": "⑥",
+   "name": "プッチグランプリ",
+   "nameEn": "Putti Grand Prix",
+   "rideMin": "約5分",
+   "wait": 30,
+   "url": "https://www.suzukacircuit.jp/park/attraction/putti-grandprix/",
+   "isRoute": true
+  },
+  {
+   "no": "⑦",
+   "name": "ルンルンバルーン",
+   "nameEn": "Run-Run Balloon",
+   "rideMin": "約5分",
+   "wait": 20,
+   "url": "https://www.suzukacircuit.jp/park/attraction/runrun-balloon/",
+   "isRoute": false
+  },
+  {
+   "no": "⑧",
+   "name": "プッチパレード",
+   "nameEn": "Putti Parade",
+   "rideMin": "約2分",
+   "wait": 10,
+   "url": "https://www.suzukacircuit.jp/park/attraction/putti-parade/",
+   "isRoute": false
+  },
+  {
+   "no": "⑨",
+   "name": "メンキョセンター",
+   "nameEn": "Menkyo Center",
+   "rideMin": "",
+   "wait": 10,
+   "url": "https://www.suzukacircuit.jp/park/licence/",
+   "isRoute": false
+  },
+  {
+   "no": "⑩",
+   "name": "ぶんぶんばち",
+   "nameEn": "Bun Bun Bee",
+   "rideMin": "約3分",
+   "wait": 25,
+   "url": "https://www.suzukacircuit.jp/park/attraction/bunbun/",
+   "isRoute": false
+  },
+  {
+   "no": "⑪",
+   "name": "チララのフラワーワゴン",
+   "nameEn": "Chirara's Flower Wagon",
+   "rideMin": "約4分",
+   "wait": 15,
+   "url": "https://www.suzukacircuit.jp/park/attraction/flower-wagon/",
+   "isRoute": false
+  },
+  {
+   "no": "⑫",
+   "name": "でんでんむし",
+   "nameEn": "Den-Den-mushi",
+   "rideMin": "約5分",
+   "wait": 20,
+   "url": "https://www.suzukacircuit.jp/park/attraction/denden/",
+   "isRoute": false
+  },
+  {
+   "no": "⑬",
+   "name": "菜園めいろ ポタジェンヌ",
+   "nameEn": "Garden Maze Potagenne",
+   "rideMin": "",
+   "wait": 30,
+   "url": "https://www.suzukacircuit.jp/park/attraction/potajenne/",
+   "isRoute": false
+  },
+  {
+   "no": "⑭",
+   "name": "アクロエックス エボリューション",
+   "nameEn": "Acro-X Evolution",
+   "rideMin": "約5分",
+   "wait": 40,
+   "url": "https://www.suzukacircuit.jp/park/attraction/acro-x/",
+   "isRoute": false
+  },
+  {
+   "no": "⑮",
+   "name": "ドリームR",
+   "nameEn": "Dream R",
+   "rideMin": "約2分",
+   "wait": 40,
+   "url": "https://www.suzukacircuit.jp/park/attraction/dream-r/",
+   "isRoute": false
+  },
+  {
+   "no": "⑯",
+   "name": "ene-1",
+   "nameEn": "エネワン",
+   "rideMin": "約3分)",
+   "wait": 30,
+   "url": "https://www.suzukacircuit.jp/park/attraction/ene-1/",
+   "isRoute": false
+  },
+  {
+   "no": "⑰",
+   "name": "アクロバイク",
+   "nameEn": "Acro Bike",
+   "rideMin": "約2分30秒、説明･準備:約30分",
+   "wait": 10,
+   "url": "https://www.suzukacircuit.jp/park/attraction/acro-bike/",
+   "isRoute": false
+  },
+  {
+   "no": "⑱",
+   "name": "キッズバイクトレーニング",
+   "nameEn": "Kid's Bike Training",
+   "rideMin": "約1分40秒、説明･準備･練習:約40分",
+   "wait": 10,
+   "url": "https://www.suzukacircuit.jp/park/attraction/kids-bike-training/",
+   "isRoute": false
+  },
+  {
+   "no": "⑲",
+   "name": "ピンキーバイクプラス",
+   "nameEn": "Pinky Bike Plus",
+   "rideMin": "約2分",
+   "wait": 10,
+   "url": "https://www.suzukacircuit.jp/park/attraction/pinky-bike-plus/",
+   "isRoute": true
+  },
+  {
+   "no": "⑳",
+   "name": "ライセンスセンター",
+   "nameEn": "License Center",
+   "rideMin": "",
+   "wait": 10,
+   "url": "https://www.suzukacircuit.jp/park/licence/",
+   "isRoute": false
+  },
+  {
+   "no": "㉑",
+   "name": "アドベンチャードライブ",
+   "nameEn": "Adventure Drive",
+   "rideMin": "約3分40秒",
+   "wait": 35,
+   "url": "https://www.suzukacircuit.jp/park/attraction/adventure-drive/",
+   "isRoute": false
+  },
+  {
+   "no": "㉒",
+   "name": "スモッグラッシュアドベンチャー",
+   "nameEn": "SMOG RUSH ADVENTURE",
+   "rideMin": "約4分",
+   "wait": 15,
+   "url": "https://www.suzukacircuit.jp/park/attraction/smog-rush-adventure/",
+   "isRoute": true
+  },
+  {
+   "no": "㉓",
+   "name": "アドベンボート フロンティア",
+   "nameEn": "Adven Boat Frontier",
+   "rideMin": "約5分",
+   "wait": 25,
+   "url": "https://www.suzukacircuit.jp/park/attraction/adven-boat-frontier/",
+   "isRoute": true
+  },
+  {
+   "no": "㉔",
+   "name": "パラ・セイラー",
+   "nameEn": "Para-Sailor",
+   "rideMin": "約2分30秒",
+   "wait": 10,
+   "url": "https://www.suzukacircuit.jp/park/attraction/para-sailor/",
+   "isRoute": false
+  },
+  {
+   "no": "㉕",
+   "name": "ロッキーコースター",
+   "nameEn": "Rocky Coaster",
+   "rideMin": "約1分30秒",
+   "wait": 10,
+   "url": "https://www.suzukacircuit.jp/park/attraction/rocky-coaster/",
+   "isRoute": false
+  },
+  {
+   "no": "㉗",
+   "name": "サーキットホイール",
+   "nameEn": "Circuit Wheel",
+   "rideMin": "約12分",
+   "wait": 10,
+   "url": "https://www.suzukacircuit.jp/park/attraction/circuit-wheel/",
+   "isRoute": true
+  },
+  {
+   "no": "㉙",
+   "name": "GP レーサーズ",
+   "nameEn": "GP Racers",
+   "rideMin": "約2分",
+   "wait": 25,
+   "url": "https://www.suzukacircuit.jp/park/attraction/gp-racers/",
+   "isRoute": false
+  },
+  {
+   "no": "㉚",
+   "name": "デュエル GP",
+   "nameEn": "DUEL GP",
+   "rideMin": "約1分30秒",
+   "wait": 30,
+   "url": "https://www.suzukacircuit.jp/park/attraction/duel-gp/",
+   "isRoute": false
+  },
+  {
+   "no": "㉛",
+   "name": "モトファイター",
+   "nameEn": "MOTO Fighter",
+   "rideMin": "約2分、説明･準備･テスト:30分",
+   "wait": 10,
+   "url": "https://www.suzukacircuit.jp/park/attraction/moto-fighter/",
+   "isRoute": false
+  }
+ ],
+ "notes": [
+  "㉜カートアタッカーは電子整理券制です。",
+  "お客様のキャンセル状況により、空き枠が生じる場合がございます。",
+  "空き状況は、 こちらのWEB予約より ご確認ください。",
+  "※待ち時間はその時々により大きく変動しますので",
+  "目安としてご覧ください。",
+  "※メンキョセンター・ライセンスセンターは",
+  "閉園間際、混雑いたします。",
+  "※待ち時間が長いアトラクションに関しましては",
+  "新規受付を早く終了する可能性があります。",
+  "※整備・点検のため急遽営業を中止する場合があります。",
+  "予めご了承ください。",
+  "※その他、天候の状況により内容は",
+  "予告なく変更になる場合がございます。"
+ ],
+ "days": [
+  {
+   "date": "2026-10-18",
+   "dow": "日",
+   "hours": "9:30〜17:30",
+   "prices": [
+    "入園券：2,200円",
+    "パークパスポート：5,300円"
+   ],
+   "band": "b"
+  },
+  {
+   "date": "2026-10-19",
+   "dow": "月",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-10-20",
+   "dow": "火",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-10-21",
+   "dow": "水",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-10-22",
+   "dow": "木",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-10-23",
+   "dow": "金",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-10-24",
+   "dow": "土",
+   "hours": "8:30〜17:30",
+   "prices": [
+    "レース開催日"
+   ],
+   "band": "m"
+  },
+  {
+   "date": "2026-10-25",
+   "dow": "日",
+   "hours": "8:30〜17:30",
+   "prices": [
+    "レース開催日"
+   ],
+   "band": "m"
+  },
+  {
+   "date": "2026-10-26",
+   "dow": "月",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-10-27",
+   "dow": "火",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-10-28",
+   "dow": "水",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-10-29",
+   "dow": "木",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-10-30",
+   "dow": "金",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-10-31",
+   "dow": "土",
+   "hours": "9:30〜17:30",
+   "prices": [
+    "入園券：2,200円",
+    "パークパスポート：5,300円"
+   ],
+   "band": "b"
+  },
+  {
+   "date": "2026-11-01",
+   "dow": "日",
+   "hours": "9:30〜17:30",
+   "prices": [
+    "入園券：2,200円",
+    "パークパスポート：5,300円"
+   ],
+   "band": "b"
+  },
+  {
+   "date": "2026-11-02",
+   "dow": "月",
+   "hours": "9:30〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-11-03",
+   "dow": "火・祝",
+   "hours": "9:30〜17:30",
+   "prices": [
+    "入園券：2,200円",
+    "パークパスポート：5,300円"
+   ],
+   "band": "b"
+  },
+  {
+   "date": "2026-11-04",
+   "dow": "水",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-11-05",
+   "dow": "木",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-11-06",
+   "dow": "金",
+   "hours": "10:00〜17:00",
+   "prices": [
+    "入園券：2,000円",
+    "パークパスポート：4,800円"
+   ],
+   "band": "a"
+  },
+  {
+   "date": "2026-11-07",
+   "dow": "土",
+   "hours": "9:30〜17:30",
+   "prices": [
+    "入園券：2,200円",
+    "パークパスポート：5,300円"
+   ],
+   "band": "b"
+  }
+ ],
+ "history": [
+  {
+   "t": "2026-10-18 13:31",
+   "data": {
+    "①": 10,
+    "②": 30,
+    "③": 15,
+    "④": 30,
+    "⑤": 20,
+    "⑥": 30,
+    "⑦": 20,
+    "⑧": 10,
+    "⑨": 10,
+    "⑩": 25,
+    "⑪": 15,
+    "⑫": 20,
+    "⑬": 30,
+    "⑭": 40,
+    "⑮": 40,
+    "⑯": 30,
+    "⑰": 10,
+    "⑱": 10,
+    "⑲": 10,
+    "⑳": 10,
+    "㉑": 35,
+    "㉒": 15,
+    "㉓": 25,
+    "㉔": 10,
+    "㉕": 10,
+    "㉗": 10,
+    "㉙": 25,
+    "㉚": 30,
+    "㉛": 10
+   }
+  },
+  {
+   "t": "2026-10-18 13:34",
+   "data": {
+    "①": 10,
+    "②": 30,
+    "③": 15,
+    "④": 30,
+    "⑤": 20,
+    "⑥": 30,
+    "⑦": 20,
+    "⑧": 10,
+    "⑨": 10,
+    "⑩": 25,
+    "⑪": 15,
+    "⑫": 20,
+    "⑬": 30,
+    "⑭": 40,
+    "⑮": 40,
+    "⑯": 30,
+    "⑰": 10,
+    "⑱": 10,
+    "⑲": 10,
+    "⑳": 10,
+    "㉑": 35,
+    "㉒": 15,
+    "㉓": 25,
+    "㉔": 10,
+    "㉕": 10,
+    "㉗": 10,
+    "㉙": 25,
+    "㉚": 30,
+    "㉛": 10
+   }
+  }
+ ],
+ "historyStats": {
+  "samples": 2,
+  "shown": 2,
+  "since": "2026-10-18 13:31"
+ },
+ "sources": [
+  "apps.mobilityland.co.jp（アトラクション営業・待ち時間案内）",
+  "suzukacircuit.jp/park/fee（營業時間・價格）"
+ ]
+}

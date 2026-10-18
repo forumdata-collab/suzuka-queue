@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="鈴鹿賽車場（モートピア）即時設施等候時間、運休名單、當日營業時間與票價：官方 アトラクション営業案内 資料整理，每 5 分鐘更新。非官方。">
+<title>鈴鹿賽車場 モートピア 即時狀況 | Suzuka Circuit Wait Times</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23dc2626'/><path d='M6 21h20l-3-8H9z' fill='%23fff'/></svg>">
+<style>
+  :root{--bg:#0f172a;--card:#1e293b;--card2:#24334a;--text:#e2e8f0;--sub:#94a3b8;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--blue:#3b82f6;--border:#334155;--accent:#dc2626}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Noto Sans JP",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;padding:0 0 40px;-webkit-text-size-adjust:100%}
+  .wrap{max-width:900px;margin:0 auto;padding:0 14px}
+  header{padding:18px 0 12px;border-bottom:1px solid var(--border)}
+  h1{font-size:1.14rem;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  h1 .flag{width:16px;height:11px;background:linear-gradient(180deg,var(--accent) 0 55%,#fff 55% 100%);border-radius:2px;flex:none;box-shadow:0 0 0 1px var(--border)}
+  h1 small{font-size:.68rem;color:var(--sub);font-weight:400}
+  .hours{font-size:.78rem;color:var(--sub);margin-top:6px}
+  .hours b{color:var(--text)}
+  .state{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;padding:2px 9px;border-radius:999px;margin-left:8px;border:1px solid transparent}
+  .state.open{color:#052e16;background:var(--green)}
+  .state.closed{color:var(--sub);border-color:var(--border)}
+  .updated{font-size:.7rem;color:var(--sub);margin-top:4px}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px;margin:14px 0 4px}
+  .tile{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:9px 11px;text-align:center}
+  .tile b{display:block;font-size:1.25rem;font-variant-numeric:tabular-nums}
+  .tile span{font-size:.65rem;color:var(--sub)}
+  .tile.wait b{color:var(--amber)} .tile.long b{color:var(--red)} .tile.susp b{color:var(--red)}
+  .controls{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:14px 0 6px}
+  .chip{font:inherit;font-size:.78rem;padding:5px 11px;border-radius:999px;background:var(--card);border:1px solid var(--border);color:var(--sub);cursor:pointer}
+  .chip:hover{border-color:var(--blue);color:var(--text)}
+  .chip.active{background:var(--blue);border-color:var(--blue);color:#fff}
+  .chip .n{opacity:.7;margin-left:4px;font-size:.7rem}
+  h2{font-size:.86rem;font-weight:600;color:var(--sub);margin:20px 0 8px;letter-spacing:.03em}
+  .list{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden}
+  .ride{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:9px 13px;border-top:1px solid var(--border);font-size:.86rem}
+  .ride:first-child{border-top:0}
+  .ride .nm{min-width:0}
+  .ride .nm b{font-weight:600}
+  .ride .nm .en{font-size:.7rem;color:var(--sub);font-weight:400;margin-left:6px}
+  .ride .nm span.meta{display:block;font-size:.66rem;color:var(--sub);margin-top:1px}
+  .route{display:inline-block;font-size:.6rem;color:#fca5a5;border:1px solid #7f1d1d;background:#450a0a;border-radius:5px;padding:0 5px;margin-left:6px;vertical-align:1px}
+  .wait{font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:9px;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .wait.short{background:rgba(34,197,94,.16);color:var(--green)}
+  .wait.mid{background:rgba(245,158,11,.16);color:var(--amber)}
+  .wait.long{background:rgba(239,68,68,.16);color:var(--red)}
+  .wait.off{background:rgba(148,163,184,.14);color:var(--sub)}
+  .ride .spark{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin-top:5px}
+  .ride .spark .strend{font-size:.66rem;color:var(--sub);white-space:nowrap;min-width:76px}
+  .ride .spark svg{width:120px;height:24px;flex:none;overflow:visible}
+  .box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:11px 13px;font-size:.8rem;line-height:1.65}
+  .box ul{margin:6px 0 0 18px} .box li{margin-top:3px}
+  .box.susp{border-color:#7f1d1d;background:#2a1215}
+  .box.susp b{color:#fca5a5}
+  .days{width:100%;border-collapse:collapse;font-size:.78rem;background:var(--card);border-radius:11px;overflow:hidden}
+  .days th,.days td{padding:7px 9px;text-align:left;border-top:1px solid var(--border);font-variant-numeric:tabular-nums}
+  .days th{color:var(--sub);font-weight:500;border-top:0}
+  .days tr.today{background:rgba(59,130,246,.13)}
+  .days tr.today td:first-child{font-weight:700;color:#93c5fd}
+  .note{font-size:.68rem;color:var(--sub);margin:8px 2px 0;line-height:1.65}
+  footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--border);font-size:.7rem;color:var(--sub);line-height:1.7}
+  footer a{color:var(--blue);text-decoration:none}
+  a.official{display:inline-block;margin-top:8px;font-size:.75rem;padding:6px 11px;border-radius:9px;background:var(--card);border:1px solid var(--border);color:var(--text);text-decoration:none}
+  @media(max-width:520px){ .ride{font-size:.82rem;padding:8px 11px} h1{font-size:1.02rem} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1><span class="flag" aria-hidden="true"></span>鈴鹿賽車場 モートピア 即時狀況<small>Suzuka Circuit</small></h1>
+    <div class="hours" id="hours">載入中…</div>
+    <div class="updated" id="updated"></div>
+  </header>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="controls">
+    <button class="chip active" data-filter="all">全部設施<span class="n" data-n="all"></span></button>
+    <button class="chip" data-filter="route">你行程指定<span class="n" data-n="route"></span></button>
+    <button class="chip" data-filter="short">≤15 分<span class="n" data-n="short"></span></button>
+    <button class="chip" data-filter="long">30 分以上<span class="n" data-n="long"></span></button>
+  </div>
+
+  <div id="suspend"></div>
+
+  <h2>設施等候時間（官方「待ち時間」）</h2>
+  <div class="list" id="list"><div class="box">載入中…</div></div>
+  <div class="note" id="trendnote"></div>
+
+  <h2>官方注意事項</h2>
+  <div class="box"><ul id="notes"></ul></div>
+
+  <h2>未來營業時間與票價</h2>
+  <div style="overflow-x:auto"><table class="days" id="days"><tbody></tbody></table></div>
+  <div class="note">資料：鈴鹿サーキット官網月曆（每日營業時間、入園券與パークパスポート價格）。價格為官網標示，前售（WEB）價通常較平。</div>
+
+  <footer>
+    <div>本站為個人興趣項目，<b>非官方</b>，與 Honda Mobilityland／鈴鹿サーキット無關。資料來自官方公開頁面：<a href="https://apps.mobilityland.co.jp/suzuka/norimono/" target="_blank" rel="noopener">アトラクション営業・待ち時間案内</a> 與 <a href="https://www.suzukacircuit.jp/park/fee/" target="_blank" rel="noopener">料金カレンダー</a>。</div>
+    <div>官方頁面冇公佈更新間隔，等候時間會隨情況大幅變動（官方原文：目安としてご覧ください）；實際以園內現場公佈為準。頁面每 5 分鐘更新（營業時間內）。</div>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const state = { filter: 'all' };
+  let DATA = null;
+
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const cls = (w) => (w == null ? 'off' : w >= 30 ? 'long' : w >= 15 ? 'mid' : 'short');
+
+  function seriesFor(no) {
+    const h = (DATA && DATA.history) || [];
+    if (!h.length) return [];
+    const day = String(h[h.length - 1].t || '').slice(0, 10);
+    return h.filter((s) => String(s.t).slice(0, 10) === day).map((s) => (s.data && s.data[no] !== undefined ? s.data[no] : null));
+  }
+  function sparkSVG(series) {
+    if (!series || series.length < 2) return '';
+    const W = 120, H = 24, MAX = 60;
+    const pts = series.map((v, i) => (v === null || v === undefined ? null
+      : `${(i * W / Math.max(1, series.length - 1)).toFixed(1)},${(H - Math.min(v, MAX) / MAX * H).toFixed(1)}`)).filter(Boolean);
+    if (pts.length < 2) return '';
+    const last = pts[pts.length - 1].split(',');
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">` +
+      `<polyline points="${pts.join(' ')}" fill="none" stroke="#f87171" stroke-width="1.5" stroke-linejoin="round"/>` +
+      `<circle cx="${last[0]}" cy="${last[1]}" r="2" fill="#f87171"/></svg>`;
+  }
+  function sparkLabel(series) {
+    const valid = (series || []).filter((v) => v !== null && v !== undefined);
+    if (valid.length < 3) return '數據累積中';
+    const d = valid[valid.length - 1] - valid[0];
+    if (d > 5) return `↑ 變長 ${d}′`;
+    if (d < -5) return `↓ 變短 ${Math.abs(d)}′`;
+    return '→ 穩定';
+  }
+
+  function rideHTML(a) {
+    const w = a.wait;
+    const badge = w == null
+      ? `<span class="wait off">未公佈</span>`
+      : w === 0 ? `<span class="wait short">即入</span>` : `<span class="wait ${cls(w)}">${w} 分以内</span>`;
+    const series = seriesFor(a.no || a.name);
+    const spark = series.filter((v) => v !== null && v !== undefined).length >= 2
+      ? `<div class="spark"><span class="strend">${esc(sparkLabel(series))}</span>${sparkSVG(series)}</div>` : '';
+    return `<div class="ride">
+      <div class="nm"><b>${esc(a.no)} ${esc(a.name)}</b>${a.isRoute ? '<span class="route">你行程指定</span>' : ''}
+        ${a.nameEn ? `<span class="en">${esc(a.nameEn)}</span>` : ''}
+        ${a.rideMin ? `<span class="meta">乗車時間 ${esc(a.rideMin)}</span>` : ''}</div>
+      ${badge}${spark}</div>`;
+  }
+
+  function render() {
+    if (!DATA) return;
+    const all = DATA.attractions || [];
+    const counts = {
+      all: all.length,
+      route: all.filter((a) => a.isRoute).length,
+      short: all.filter((a) => a.wait != null && a.wait <= 15).length,
+      long: all.filter((a) => a.wait != null && a.wait >= 30).length,
+    };
+    document.querySelectorAll('.chip .n').forEach((el) => { el.textContent = counts[el.dataset.n] ?? ''; });
+    let rows = all.slice();
+    if (state.filter === 'route') rows = rows.filter((a) => a.isRoute);
+    if (state.filter === 'short') rows = rows.filter((a) => a.wait != null && a.wait <= 15);
+    if (state.filter === 'long') rows = rows.filter((a) => a.wait != null && a.wait >= 30);
+    $('#list').innerHTML = rows.length ? rows.map(rideHTML).join('')
+      : '<div class="box">冇符合條件嘅設施。</div>';
+  }
+
+  function renderHead() {
+    const p = DATA.park || {};
+    const h = p.hoursOpen && p.hoursClose ? `${p.hoursOpen}–${p.hoursClose}` : '—';
+    $('#hours').innerHTML = `今日 ${esc(p.dateText || p.date || '')}　<b>${esc(h)}</b>（日本時間）` +
+      `<span class="state ${p.open ? 'open' : 'closed'}">${p.open ? '營業中' : '已閉園'}</span>`;
+    $('#updated').textContent = `資料更新：${DATA.updatedHkt}（香港時間）／ ${DATA.updatedJst}（日本時間）`;
+    const waits = (DATA.attractions || []).map((a) => a.wait).filter((v) => v != null);
+    const avg = waits.length ? Math.round(waits.reduce((a, b) => a + b, 0) / waits.length) : 0;
+    const susp = DATA.suspend || {};
+    const suspN = susp.all ? 0 : (susp.items || []).length;
+    $('#tiles').innerHTML = `
+      <div class="tile"><b>${(DATA.attractions || []).length}</b><span>設施總數</span></div>
+      <div class="tile wait"><b>${avg}</b><span>平均等候（分鐘）</span></div>
+      <div class="tile long"><b>${waits.length ? Math.max(...waits) : 0}</b><span>最長等候（分鐘）</span></div>
+      <div class="tile ${suspN ? 'susp' : ''}"><b>${suspN}</b><span>運休設施</span></div>`;
+    $('#suspend').innerHTML = susp.all
+      ? `<div class="box">✅ ${esc(susp.text || '全部設施正常運行')}</div>`
+      : `<div class="box susp"><b>⚠️ 運休設施（${suspN}）</b><ul>${(susp.items || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul></div>`;
+    $('#notes').innerHTML = (DATA.notes || []).map((t) => `<li>${esc(t)}</li>`).join('') || '<li>—</li>';
+    const today = (DATA.park || {}).date;
+    $('#days').innerHTML = '<tbody>' + (DATA.days || []).slice(0, 10).map((d) => `
+      <tr class="${d.date === today ? 'today' : ''}">
+        <td>${esc(d.date.slice(5))}（${esc(d.dow)}）</td>
+        <td>${esc(d.hours || '—')}</td>
+        <td>${(d.prices || []).map((x) => esc(x)).join('　') || '—'}</td>
+      </tr>`).join('') +
+      '<tr><th>日期</th><th>營業時間</th><th>價格</th></tr></tbody>';
+    const hs = DATA.historyStats || {};
+    $('#trendnote').textContent = (hs.shown || 0) >= 2
+      ? `紅色走勢線＝今日最近 ${hs.shown} 個樣本（每 5 分鐘一個）；標籤比較首尾樣本，相差 ±5 分鐘以上先顯示變長／變短。歷史自 ${hs.since || ''}（JST）起累積。`
+      : '走勢線：樣本累積中（每 5 分鐘一個；2 個樣本先出線、3 個先有變長／變短標籤）。';
+  }
+
+  document.querySelectorAll('.chip[data-filter]').forEach((c) => c.addEventListener('click', () => {
+    document.querySelectorAll('.chip[data-filter]').forEach((x) => x.classList.toggle('active', x === c));
+    state.filter = c.dataset.filter; render();
+  }));
+
+  function load() {
+    fetch(`data/suzuka.json?cb=${Date.now()}`)
+      .then((r) => r.json())
+      .then((j) => { DATA = j; renderHead(); render(); })
+      .catch(() => { $('#updated').textContent = '資料載入失敗，請稍後再試。'; });
+  }
+  load();
+  setInterval(load, 5 * 60 * 1000);
+})();
+</script>
+</body>
+</html>
