@@ -111,6 +111,7 @@
     <span><i style="background:#475569"></i>未公佈</span>
     <span><i style="background:#fca5a5"></i>你行程指定（紅框）</span>
     <span><i style="background:#334155"></i>園區設施</span>
+    <span>點擊睇位置來源（官方數位地圖／OpenStreetMap）</span>
   </div>
   <div class="mapnote" id="mapnote">地圖載入中…</div>
   <div id="suspend"></div>
@@ -276,7 +277,7 @@
         + (closed ? '園區已閉園' : (a.wait == null ? '官方未公佈等候時間' : a.wait === 0 ? '開放・即時可入' : `等候 ${a.wait} 分以内`))
         + (a.rideMin ? `<br>乗車時間 ${esc(a.rideMin)}` : '')
         + (a.isRoute ? '<br><b>你行程指定</b>' : '')
-        + (a.geoApprox ? '<br><span style="opacity:.75">位置：同一場地近似對照</span>' : ''));
+        + (`<br><span style="opacity:.75">位置：${esc(a.geoLabel || 'OpenStreetMap')}</span>`));
     });
     (g.facilities || []).forEach((f) => {
       L.marker([f.lat, f.lon], {
@@ -285,8 +286,9 @@
       }).addTo(facLayer).bindPopup(`<b>${esc(f.name)}</b><br><span style="opacity:.8">園區設施（OpenStreetMap）</span>`);
     });
     if (note) {
-      note.innerHTML = `已定位 <b>${located}/${g.total}</b> 項機動遊戲（座標：${esc(g.source)}）；未定位嘅只喺下面清單顯示，唔會亂放點。`
-        + ` 紅框＝你行程指定。`;
+      const sb = g.sourceBreakdown || {};
+      note.innerHTML = `已定位 <b>${located}/${g.total}</b> 項機動遊戲 — 官方數位地圖 ${sb.official ?? '—'} 項、OpenStreetMap ${sb.osm ?? '—'} 項`
+        + `（座標：${esc(g.source)}）；未定位嘅只喺下面清單顯示，唔會亂放點。紅框＝你行程指定。`;
     }
   }
 

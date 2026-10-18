@@ -211,6 +211,7 @@ def geo_meta(attractions) -> dict:
     return {
         "center": g.get("center"),
         "source": g.get("source"),
+        "sourceBreakdown": g.get("sourceBreakdown"),
         "outline": g.get("outline") or [],
         "facilities": g.get("facilities") or [],
         "located": located,
@@ -266,6 +267,7 @@ def main() -> int:
         g = GEO.get((a.get("no") or "").strip())
         if g:
             a["lat"], a["lon"] = g["lat"], g["lon"]
+            a["geoLabel"] = g.get("label") or ("OpenStreetMap（近似對照）" if g.get("approx") else "OpenStreetMap")
             if g.get("approx"):
                 a["geoApprox"] = True
 

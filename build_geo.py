@@ -22,6 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CENTER = (34.8469872, 136.5410968)   # OSM way「鈴鹿サーキット　遊園地　モートピア」
 UA = "suzuka-map/1.0 (+https://we1co.me)"
 OSM_DUMP = os.path.join(HERE, "data", "geo-osm.json")
+PA_SPOTS = os.path.join(HERE, "data", "pa-spots.json")     # 官方數位地圖（fetch_pa_spots.py）
 OUT = os.path.join(HERE, "data", "geo.json")
 
 # live 設施名 → OSM 名（唔一致／英文名／同一地點嘅近似對照）。approx=True 代表係「同一場地但唔完全同名」。
@@ -91,9 +92,19 @@ def fetch_osm() -> dict:
     return payload
 
 
+def load_pa() -> dict:
+    """官方數位地圖 spots（名稱 → {lat,lon}）。官方標示位置，優先於 OSM。"""
+    try:
+        with open(PA_SPOTS, encoding="utf-8") as fh:
+            return {s["title"].strip(): s for s in json.load(fh).get("spots") or []}
+    except Exception:
+        return {}
+
+
 def main() -> int:
     src = fetch_osm()
     osm, outline = src["osm"], src.get("outline") or []
+    pa = load_pa()
     by_norm = {norm(k): k for k in osm}
     live = json.load(open(os.path.join(HERE, "site", "data", "suzuka.json"), encoding="utf-8"))["attractions"]
 
@@ -106,16 +117,23 @@ def main() -> int:
         if not cand:
             hit = [k for k in osm if norm(name) and (norm(name) in norm(k) or norm(k) in norm(name))]
             cand = hit[0] if len(hit) == 1 and len(norm(hit[0])) >= 4 else None
-        if cand and cand in osm:
-            located[key] = {"lat": osm[cand]["lat"], "lon": osm[cand]["lon"], "osm": cand, **({"approx": True} if approx else {})}
+        official = pa.get(name)
+        if official:
+            located[key] = {"lat": official["lat"], "lon": official["lng"], "src": "official",
+                            "label": "官方數位地圖"}
+        elif cand and cand in osm:
+            located[key] = {"lat": osm[cand]["lat"], "lon": osm[cand]["lon"], "src": "osm", "osm": cand,
+                            **({"approx": True} if approx else {})}
         else:
             missed.append(f"{key} {name}")
 
     facs = [{"name": zh, "osm": o, "lat": osm[o]["lat"], "lon": osm[o]["lon"]}
             for zh, o in FACILITIES.items() if o in osm]
+    n_off = sum(1 for v in located.values() if v.get("src") == "official")
     payload = {
         "center": list(CENTER),
-        "source": "OpenStreetMap（ODbL）via Overpass API",
+        "source": "OpenStreetMap（ODbL）+ 鈴鹿官方數位地圖",
+        "sourceBreakdown": {"official": n_off, "osm": len(located) - n_off},
         "locatedCount": len(located),
         "total": len(live),
         "located": located,
@@ -124,8 +142,9 @@ def main() -> int:
     }
     json.dump(payload, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1, sort_keys=True)
     print(f"已定位 {len(located)}/{len(live)}、實用設施 {len(facs)}、輪廓 {len(outline)} 點 → {OUT}")
-    for k, v in located.items():
-        print(f"   ✓ {k} {v['osm']}{'（近似）' if v.get('approx') else ''}")
+    for k, v in sorted(located.items()):
+        tag = "官方數位地圖" if v.get("src") == "official" else f"OSM {v.get('osm','')}" + ("（近似）" if v.get("approx") else "")
+        print(f"   ✓ {k} {v['lat']:.6f},{v['lon']:.6f} ← {tag}")
     print("   未定位：" + ("；".join(missed) if missed else "無"))
     return 0
 
