@@ -2,3 +2,5 @@ cache/
 deploy.log
 __pycache__/
 .wrangler/
+# generated data（每 5 分鐘由 fetch_suzuka.py 重生，唔需要入 git）
+site/data/suzuka.json
