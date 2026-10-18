@@ -67,6 +67,7 @@
   .pin{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;border-radius:9px;padding:1px 6px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.35)}
   .pin.short{background:#15803d}.pin.mid{background:#b45309}.pin.long{background:#b91c1c}.pin.none{background:#475569}
   .pin.route{outline:2px solid #fca5a5;outline-offset:1px}
+  .pin.est{outline:2px dashed #e2e8f0;outline-offset:1px;opacity:.9}
   .pin.fac{background:#334155;border-radius:5px;font-weight:600}
   .area-label{font-size:0.68rem;font-weight:600;color:#e2e8f0;background:rgba(15,23,42,.72);border:1px solid rgba(148,163,184,.5);border-radius:7px;padding:1px 6px;white-space:nowrap}
   .mapnote{font-size:.68rem;color:var(--sub);margin:6px 2px 0;line-height:1.6}
@@ -272,14 +273,15 @@
       const cls = closed ? 'none' : (a.wait == null ? 'none' : a.wait >= 30 ? 'long' : a.wait >= 15 ? 'mid' : 'short');
       const label = closed ? '—' : (a.wait == null ? '?' : a.wait === 0 ? '即入' : `${a.wait}′`);
       L.marker([a.lat, a.lon], {
-        icon: L.divIcon({ className: '', html: `<span class="pin ${cls}${a.isRoute ? ' route' : ''}">${esc(label)}</span>`, iconSize: [30, 18], iconAnchor: [15, 9] }),
+        icon: L.divIcon({ className: '', html: `<span class="pin ${cls}${a.isRoute ? ' route' : ''}${a.geoApprox ? ' est' : ''}">${esc(label)}</span>`, iconSize: [30, 18], iconAnchor: [15, 9] }),
         title: `${a.no} ${a.name}`,
       }).addTo(pinLayer).bindPopup(
         `<b>${esc(a.no)} ${esc(a.name)}</b>${a.nameZh ? `　<span style="color:#fbbf24">${esc(a.nameZh)}</span>` : ''}<br>${esc(a.nameEn || '')}<br>`
         + (closed ? '園區已閉園' : (a.wait == null ? '官方未公佈等候時間' : a.wait === 0 ? '開放・即時可入' : `等候 ${a.wait} 分以内`))
         + (a.rideMin ? `<br>乗車時間 ${esc(a.rideMin)}` : '')
         + (a.isRoute ? '<br><b>你行程指定</b>' : '')
-        + (`<br><span style="opacity:.75">位置：${esc(a.geoLabel || 'OpenStreetMap')}</span>`));
+        + (`<br><span style="opacity:.75">位置：${esc(a.geoLabel || 'OpenStreetMap')}</span>`)
+        + (a.geoArea ? '<br><span style="opacity:.75">（官方只公佈所屬分區，圖示為該區中心，非實際位置）</span>' : ''));
     });
     (g.facilities || []).forEach((f) => {
       L.marker([f.lat, f.lon], {
@@ -289,8 +291,8 @@
     });
     if (note) {
       const sb = g.sourceBreakdown || {};
-      note.innerHTML = `已定位 <b>${located}/${g.total}</b> 項機動遊戲 — 官方數位地圖 ${sb.official ?? '—'} 項、OpenStreetMap ${sb.osm ?? '—'} 項`
-        + `（座標：${esc(g.source)}）；未定位嘅只喺下面清單顯示，唔會亂放點。紅框＝你行程指定。`;
+      note.innerHTML = `已定位 <b>${located}/${g.total}</b> 項機動遊戲 — 官方數位地圖 ${sb.official ?? '—'}、Google 地圖 ${sb.gmaps ?? '—'}、OpenStreetMap ${sb.osm ?? '—'}、官方分區中心 ${sb.area ?? 0}`
+        + `（座標來源：${esc(g.source)}）。<b>虛線框</b>＝位置為近似／分區中心，唔係實際位置；紅框＝你行程指定。`;
     }
   }
 
@@ -309,7 +311,7 @@
     (list || []).forEach((x) => {
       if (!x.lat) return;
       const d = hav(lat, lon, x.lat, x.lon);
-      if (!best || d < best.d) best = { d, name: nameOf(x) };
+      if (!best || d < best.d) best = { d, name: nameOf(x), est: !!x.geoApprox };
     });
     return best;
   }
@@ -343,7 +345,7 @@
     const far = centre != null && centre > 5000;      // 距離遠嘅時候唔講「最近設施」（冇意義）
     setLocNote(`📱 <b>已顯示你目前位置</b>（地圖藍點，準確度約 ±${Math.round(acc || 0)} 米）`
       + (isIn ? '＝已喺園區範圍內。' : (centre == null ? '' : `；距離園區中心 <b>${fmtDist(centre)}</b>。`))
-      + (!far && near ? `最近設施：<b>${esc(near.name)}</b>（${fmtDist(near.d)}，直線距離）。` : '')
+      + (!far && near ? `最近設施：<b>${esc(near.name)}</b>（${fmtDist(near.d)}，直線距離${near.est ? '；該點為近似／分區中心' : ''}）。` : '')
       + (!far && gate ? `最近園區設施：${esc(gate.name)}（${fmtDist(gate.d)}）。` : '')
       + `位置由你部機嘅瀏覽器直接取得，唔會上傳或儲存。再按一次可更新。`);
   }

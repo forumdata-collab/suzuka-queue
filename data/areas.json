@@ -1,0 +1,214 @@
+{
+ "areas": {
+  "1": "コチラのプッチタウン",
+  "2": "チララのハローガーデン",
+  "3": "プートのモビパーク",
+  "4": "ピピラのモトフィールド",
+  "5": "バットのアドベンチャーヴィレッジ",
+  "6": "GPフィールド",
+  "7": "サーキットチャレンジャー",
+  "8": "アクア・アドベンチャー"
+ },
+ "byName": {
+  "ene-1": {
+   "area": "3",
+   "areaName": "プートのモビパーク",
+   "link": "ene-1/",
+   "name": "ene-1（エネワン）"
+  },
+  "gpレーサーズ": {
+   "area": "6",
+   "areaName": "GPフィールド",
+   "link": "gp-racers/",
+   "name": "GPレーサーズ"
+  },
+  "hondaracinggallery": {
+   "area": "6",
+   "areaName": "GPフィールド",
+   "link": "gallery/",
+   "name": "Honda RACING Gallery"
+  },
+  "でんでんむし": {
+   "area": "2",
+   "areaName": "チララのハローガーデン",
+   "link": "denden/",
+   "name": "でんでんむし"
+  },
+  "ぶんぶんばち": {
+   "area": "2",
+   "areaName": "チララのハローガーデン",
+   "link": "bunbun/",
+   "name": "ぶんぶんばち"
+  },
+  "アクア・アドベンチャー": {
+   "area": "8",
+   "areaName": "アクア・アドベンチャー",
+   "link": "../aqua/",
+   "name": "アクア・アドベンチャー"
+  },
+  "アクロエックスエボリューション": {
+   "area": "3",
+   "areaName": "プートのモビパーク",
+   "link": "acro-x/",
+   "name": "アクロエックス エボリューション"
+  },
+  "アクロバイク": {
+   "area": "4",
+   "areaName": "ピピラのモトフィールド",
+   "link": "acro-bike/",
+   "name": "アクロバイク"
+  },
+  "アドベンチャードライブ": {
+   "area": "5",
+   "areaName": "バットのアドベンチャーヴィレッジ",
+   "link": "adventure-drive/",
+   "name": "アドベンチャードライブ"
+  },
+  "アドベンボートフロンティア": {
+   "area": "5",
+   "areaName": "バットのアドベンチャーヴィレッジ",
+   "link": "adven-boat-frontier/",
+   "name": "アドベンボート フロンティア"
+  },
+  "カートアタッカー": {
+   "area": "6",
+   "areaName": "GPフィールド",
+   "link": "kart-attacker/",
+   "name": "カートアタッカー"
+  },
+  "キッズバイクトレーニング": {
+   "area": "4",
+   "areaName": "ピピラのモトフィールド",
+   "link": "kids-bike-training/",
+   "name": "キッズバイク トレーニング"
+  },
+  "コチラドライビングスクール": {
+   "area": "1",
+   "areaName": "コチラのプッチタウン",
+   "link": "driving-school/",
+   "name": "コチラドライビングスクール"
+  },
+  "サーキットチャレンジャー": {
+   "area": "7",
+   "areaName": "サーキットチャレンジャー",
+   "link": "challenger/",
+   "name": "サーキットチャレンジャー"
+  },
+  "サーキットホイール": {
+   "area": "6",
+   "areaName": "GPフィールド",
+   "link": "circuit-wheel/",
+   "name": "サーキットホイール"
+  },
+  "スモッグラッシュアドベンチャー": {
+   "area": "5",
+   "areaName": "バットのアドベンチャーヴィレッジ",
+   "link": "smog-rush-adventure/",
+   "name": "スモッグ ラッシュ アドベンチャー"
+  },
+  "チクタクトレイン": {
+   "area": "1",
+   "areaName": "コチラのプッチタウン",
+   "link": "tic-tac-train/",
+   "name": "チクタクトレイン"
+  },
+  "チララのフラワーワゴン": {
+   "area": "2",
+   "areaName": "チララのハローガーデン",
+   "link": "flower-wagon/",
+   "name": "チララのフラワーワゴン"
+  },
+  "テストフライト": {
+   "area": "1",
+   "areaName": "コチラのプッチタウン",
+   "link": "test-flight/",
+   "name": "テストフライト"
+  },
+  "デュエルgp": {
+   "area": "6",
+   "areaName": "GPフィールド",
+   "link": "duel-gp/",
+   "name": "デュエルGP"
+  },
+  "ドリームr": {
+   "area": "3",
+   "areaName": "プートのモビパーク",
+   "link": "dream-r/",
+   "name": "ドリームR"
+  },
+  "パラ・セイラー": {
+   "area": "5",
+   "areaName": "バットのアドベンチャーヴィレッジ",
+   "link": "para-sailor/",
+   "name": "パラ・セイラー"
+  },
+  "ピンキーバイクプラス": {
+   "area": "4",
+   "areaName": "ピピラのモトフィールド",
+   "link": "pinky-bike-plus/",
+   "name": "ピンキーバイク プラス"
+  },
+  "プッチグランプリ": {
+   "area": "1",
+   "areaName": "コチラのプッチタウン",
+   "link": "putti-grandprix/",
+   "name": "プッチグランプリ"
+  },
+  "プッチパトロール": {
+   "area": "1",
+   "areaName": "コチラのプッチタウン",
+   "link": "putti-patrol/",
+   "name": "プッチパトロール"
+  },
+  "プッチパレード": {
+   "area": "1",
+   "areaName": "コチラのプッチタウン",
+   "link": "putti-parade/",
+   "name": "プッチパレード"
+  },
+  "プッチパワーショベル": {
+   "area": "1",
+   "areaName": "コチラのプッチタウン",
+   "link": "putti-power-shovel/",
+   "name": "プッチパワーショベル"
+  },
+  "メンキョセンター": {
+   "area": "1",
+   "areaName": "コチラのプッチタウン",
+   "name": "メンキョセンター",
+   "src": "官方 licence 頁：「発行場所 コチラのプッチタウン内メンキョセンター」"
+  },
+  "モトファイター": {
+   "area": "6",
+   "areaName": "GPフィールド",
+   "link": "moto-fighter/",
+   "name": "モトファイター"
+  },
+  "ライセンスセンター": {
+   "area": "4",
+   "areaName": "ピピラのモトフィールド",
+   "name": "ライセンスセンター",
+   "src": "官方 licence 頁：「ピピラのモトフィールド内ライセンスセンター」"
+  },
+  "ルンルンバルーン": {
+   "area": "1",
+   "areaName": "コチラのプッチタウン",
+   "link": "runrun-balloon/",
+   "name": "ルンルンバルーン"
+  },
+  "ロッキーコースター": {
+   "area": "5",
+   "areaName": "バットのアドベンチャーヴィレッジ",
+   "link": "rocky-coaster/",
+   "name": "ロッキーコースター"
+  },
+  "菜園めいろポタジェンヌ": {
+   "area": "2",
+   "areaName": "チララのハローガーデン",
+   "link": "potajenne/",
+   "name": "菜園めいろ ポタジェンヌ"
+  }
+ },
+ "count": 33,
+ "source": "https://www.suzukacircuit.jp/park/attraction/json/attraction.json"
+}

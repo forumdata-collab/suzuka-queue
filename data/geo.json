@@ -42,6 +42,12 @@
   }
  ],
  "located": {
+  "①": {
+   "label": "Google 地圖（第三方）",
+   "lat": 34.8488062,
+   "lon": 136.5400881,
+   "src": "gmaps"
+  },
   "②": {
    "lat": 34.848794,
    "lon": 136.540096,
@@ -49,11 +55,10 @@
    "src": "osm"
   },
   "③": {
-   "approx": true,
-   "lat": 34.845758,
-   "lon": 136.540972,
-   "osm": "フライングシップ",
-   "src": "osm"
+   "label": "Google 地圖（第三方）",
+   "lat": 34.8482376,
+   "lon": 136.5402119,
+   "src": "gmaps"
   },
   "④": {
    "lat": 34.848664,
@@ -85,6 +90,15 @@
    "osm": "プッチパレード",
    "src": "osm"
   },
+  "⑨": {
+   "approx": true,
+   "areaCount": 8,
+   "areaName": "コチラのプッチタウン",
+   "label": "官方分區中心（コチラのプッチタウン，非精確）",
+   "lat": 34.848435,
+   "lon": 136.540329,
+   "src": "area"
+  },
   "⑩": {
    "label": "官方數位地圖",
    "lat": 34.8479131837968,
@@ -102,6 +116,12 @@
    "lon": 136.542639,
    "osm": "でんでんむし",
    "src": "osm"
+  },
+  "⑬": {
+   "label": "Google 地圖（第三方）",
+   "lat": 34.8470996,
+   "lon": 136.5427017,
+   "src": "gmaps"
   },
   "⑭": {
    "lat": 34.846657,
@@ -182,6 +202,18 @@
    "lon": 136.538896040977,
    "src": "official"
   },
+  "㉙": {
+   "label": "Google 地圖（第三方）",
+   "lat": 34.8453413,
+   "lon": 136.5401087,
+   "src": "gmaps"
+  },
+  "㉚": {
+   "label": "Google 地圖（第三方）",
+   "lat": 34.8461883,
+   "lon": 136.5396433,
+   "src": "gmaps"
+  },
   "㉛": {
    "label": "官方數位地圖",
    "lat": 34.8465874062997,
@@ -189,7 +221,7 @@
    "src": "official"
   }
  },
- "locatedCount": 24,
+ "locatedCount": 29,
  "outline": [
   [
    34.84691,
@@ -508,10 +540,12 @@
    136.537223
   ]
  ],
- "source": "OpenStreetMap（ODbL）+ 鈴鹿官方數位地圖",
+ "source": "OpenStreetMap（ODbL）+ 鈴鹿官方數位地圖 + Google 地圖 POI",
  "sourceBreakdown": {
+  "area": 1,
+  "gmaps": 5,
   "official": 8,
-  "osm": 16
+  "osm": 15
  },
  "total": 29
 }

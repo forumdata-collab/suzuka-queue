@@ -295,6 +295,8 @@ def main() -> int:
             a["geoLabel"] = g.get("label") or ("OpenStreetMap（近似對照）" if g.get("approx") else "OpenStreetMap")
             if g.get("approx"):
                 a["geoApprox"] = True
+            if g.get("areaName"):
+                a["geoArea"] = g["areaName"]
 
     payload = {
         "updatedJst": now.strftime("%Y-%m-%d %H:%M"),
@@ -317,7 +319,8 @@ def main() -> int:
         "historyStats": {"samples": len(keys), "shown": len(shown), "since": keys[0] if keys else ""},
         "geo": geo_meta(attractions),
         "sources": ["apps.mobilityland.co.jp（アトラクション営業・待ち時間案内）",
-                    "suzukacircuit.jp/park/fee（營業時間・價格）"],
+                    "suzukacircuit.jp/park/fee（營業時間・價格）",
+                    "座標：官方數位地圖／Google 地圖 POI（已對照官方座標）／OpenStreetMap（ODbL）／官方分區中心"],
     }
     os.makedirs(DATA, exist_ok=True)
     tmp = os.path.join(DATA, "suzuka.json.tmp")
