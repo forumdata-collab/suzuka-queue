@@ -38,6 +38,7 @@
   .ride:first-child{border-top:0}
   .ride .nm{min-width:0}
   .ride .nm b{font-weight:600}
+  .ride .nm .zh{color:#fbbf24;font-weight:700;margin-left:6px}
   .ride .nm .en{font-size:.7rem;color:var(--sub);font-weight:400;margin-left:6px}
   .ride .nm span.meta{display:block;font-size:.66rem;color:var(--sub);margin-top:1px}
   .route{display:inline-block;font-size:.6rem;color:#fca5a5;border:1px solid #7f1d1d;background:#450a0a;border-radius:5px;padding:0 5px;margin-left:6px;vertical-align:1px}
@@ -119,6 +120,7 @@
   <h2>設施等候時間（官方「待ち時間」）</h2>
   <div class="list" id="list"><div class="box">載入中…</div></div>
   <div class="note" id="trendnote"></div>
+  <div class="note">中文名：<b>鈴鹿賽車場官方繁體中文網站</b>（29 項中 27 項為官方譯名；メンキョセンター／ライセンスセンター 官方清單冇，為本站譯）。日文名照官方「待ち時間」頁原文。</div>
 
   <h2>官方注意事項</h2>
   <div class="box"><ul id="notes"></ul></div>
@@ -179,7 +181,7 @@
     const spark = series.filter((v) => v !== null && v !== undefined).length >= 2
       ? `<div class="spark"><span class="strend">${esc(sparkLabel(series))}</span>${sparkSVG(series)}</div>` : '';
     return `<div class="ride">
-      <div class="nm"><b>${esc(a.no)} ${esc(a.name)}</b>${a.isRoute ? '<span class="route">你行程指定</span>' : ''}
+      <div class="nm"><b>${esc(a.no)} ${esc(a.name)}</b>${a.nameZh ? `<span class="zh">${esc(a.nameZh)}</span>` : ''}${a.isRoute ? '<span class="route">你行程指定</span>' : ''}
         ${a.nameEn ? `<span class="en">${esc(a.nameEn)}</span>` : ''}
         ${a.rideMin ? `<span class="meta">乗車時間 ${esc(a.rideMin)}</span>` : ''}</div>
       ${badge}${spark}</div>`;
@@ -273,7 +275,7 @@
         icon: L.divIcon({ className: '', html: `<span class="pin ${cls}${a.isRoute ? ' route' : ''}">${esc(label)}</span>`, iconSize: [30, 18], iconAnchor: [15, 9] }),
         title: `${a.no} ${a.name}`,
       }).addTo(pinLayer).bindPopup(
-        `<b>${esc(a.no)} ${esc(a.name)}</b><br>${esc(a.nameEn || '')}<br>`
+        `<b>${esc(a.no)} ${esc(a.name)}</b>${a.nameZh ? `　<span style="color:#fbbf24">${esc(a.nameZh)}</span>` : ''}<br>${esc(a.nameEn || '')}<br>`
         + (closed ? '園區已閉園' : (a.wait == null ? '官方未公佈等候時間' : a.wait === 0 ? '開放・即時可入' : `等候 ${a.wait} 分以内`))
         + (a.rideMin ? `<br>乗車時間 ${esc(a.rideMin)}` : '')
         + (a.isRoute ? '<br><b>你行程指定</b>' : '')

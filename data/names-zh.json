@@ -1,0 +1,204 @@
+{
+ "source": "鈴鹿賽車場官方繁中網站（suzukacircuit.jp/zh-tw）＋本站補譯",
+ "count": 33,
+ "names": {
+  "コチラドライビングスクール": {
+   "zh": "酷奇拉駕校",
+   "slug": "driving-school",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/driving-school/",
+   "src": "官方繁中網站"
+  },
+  "チクタクトレイン": {
+   "zh": "滴答電車",
+   "slug": "tic-tac-train",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/tic-tac-train/",
+   "src": "官方繁中網站"
+  },
+  "テストフライト": {
+   "zh": "測試飛行員",
+   "slug": "test-flight",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/test-flight/",
+   "src": "官方繁中網站"
+  },
+  "プッチパワーショベル": {
+   "zh": "小小挖掘機",
+   "slug": "putti-power-shovel",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/putti-power-shovel/",
+   "src": "官方繁中網站"
+  },
+  "プッチパトロール": {
+   "zh": "小小巡邏隊",
+   "slug": "putti-patrol",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/putti-patrol/",
+   "src": "官方繁中網站"
+  },
+  "プッチグランプリ": {
+   "zh": "小小獎杯賽",
+   "slug": "putti-grandprix",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/putti-grandprix/",
+   "src": "官方繁中網站"
+  },
+  "ルンルンバルーン": {
+   "zh": "飄飄熱氣球",
+   "slug": "runrun-balloon",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/runrun-balloon/",
+   "src": "官方繁中網站"
+  },
+  "プッチパレード": {
+   "zh": "小小遊行隊",
+   "slug": "putti-parade",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/putti-parade/",
+   "src": "官方繁中網站"
+  },
+  "ぶんぶんばち": {
+   "zh": "嗡嗡蜜蜂",
+   "slug": "bunbun",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/bunbun/",
+   "src": "官方繁中網站"
+  },
+  "チララのフラワーワゴン": {
+   "zh": "綺拉拉的花車",
+   "slug": "flower-wagon",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/flower-wagon/",
+   "src": "官方繁中網站"
+  },
+  "でんでんむし": {
+   "zh": "點點蝸牛",
+   "slug": "denden",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/denden/",
+   "src": "官方繁中網站"
+  },
+  "菜園めいろ ポタジェンヌ": {
+   "zh": "菜園迷宮",
+   "slug": "potajenne",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/potajenne/",
+   "src": "官方繁中網站"
+  },
+  "アクロエックス エボリューション": {
+   "zh": "進化越野-X",
+   "slug": "acro-x",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/acro-x/",
+   "src": "官方繁中網站"
+  },
+  "ドリームR": {
+   "zh": "夢想卡丁-R",
+   "slug": "dream-r",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/dream-r/",
+   "src": "官方繁中網站"
+  },
+  "ene-1（エネワン）": {
+   "zh": "節能競賽-1（ene-1）",
+   "slug": "ene-1",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/ene-1/",
+   "src": "官方繁中網站"
+  },
+  "アクロバイク": {
+   "zh": "特技摩托車",
+   "slug": "acro-bike",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/acro-bike/",
+   "src": "官方繁中網站"
+  },
+  "キッズバイク トレーニング": {
+   "zh": "兒童摩托車訓練",
+   "slug": "kids-bike-training",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/kids-bike-training/",
+   "src": "官方繁中網站"
+  },
+  "ピンキーバイク プラス": {
+   "zh": "職業小摩托",
+   "slug": "pinky-bike-plus",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/pinky-bike-plus/",
+   "src": "官方繁中網站"
+  },
+  "アドベンチャードライブ": {
+   "zh": "冒險駕駛",
+   "slug": "adventure-drive",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/adventure-drive/",
+   "src": "官方繁中網站"
+  },
+  "アドベンボート フロンティア": {
+   "zh": "險境冒險船",
+   "slug": "adven-boat-frontier",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/adven-boat-frontier/",
+   "src": "官方繁中網站"
+  },
+  "パラ・セイラー": {
+   "zh": "空中鞦韆",
+   "slug": "para-sailor",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/para-sailor/",
+   "src": "官方繁中網站"
+  },
+  "ロッキーコースター": {
+   "zh": "險峰過山車",
+   "slug": "rocky-coaster",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/rocky-coaster/",
+   "src": "官方繁中網站"
+  },
+  "スモッグ ラッシュ アドベンチャー": {
+   "zh": "煙霧衝刺冒險",
+   "slug": "smog-rush-adventure",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/smog-rush-adventure/",
+   "src": "官方繁中網站"
+  },
+  "サーキットホイール": {
+   "zh": "賽車場摩天輪",
+   "slug": "circuit-wheel",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/circuit-wheel/",
+   "src": "官方繁中網站"
+  },
+  "GPレーサーズ": {
+   "zh": "GP摩托過山車",
+   "slug": "gp-racers",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/gp-racers/",
+   "src": "官方繁中網站"
+  },
+  "デュエルGP": {
+   "zh": "決鬥GP",
+   "slug": "duel-gp",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/duel-gp/",
+   "src": "官方繁中網站"
+  },
+  "モトファイター": {
+   "zh": "摩托賽車戰士",
+   "slug": "moto-fighter",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/moto-fighter/",
+   "src": "官方繁中網站"
+  },
+  "カートアタッカー": {
+   "zh": "卡丁車競速者",
+   "slug": "kart-attacker",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/kart-attacker/",
+   "src": "官方繁中網站"
+  },
+  "Honda RACING Gallery": {
+   "zh": "Honda RACING 展覽館",
+   "slug": "gallery",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/gallery/",
+   "src": "官方繁中網站"
+  },
+  "サーキットチャレンジャー": {
+   "zh": "賽道挑戰者",
+   "slug": "challenger",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/challenger/",
+   "src": "官方繁中網站"
+  },
+  "アクア・アドベンチャー": {
+   "zh": "水上冒險樂園｜鈴鹿賽車場",
+   "slug": "../aqua",
+   "url": "https://www.suzukacircuit.jp/zh-tw/park/attraction/../aqua/",
+   "src": "官方繁中網站"
+  },
+  "メンキョセンター": {
+   "zh": "駕照中心",
+   "slug": "",
+   "url": "",
+   "src": "本站譯"
+  },
+  "ライセンスセンター": {
+   "zh": "牌照中心",
+   "slug": "",
+   "url": "",
+   "src": "本站譯"
+  }
+ }
+}

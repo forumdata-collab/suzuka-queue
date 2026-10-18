@@ -42,6 +42,7 @@ ROUTE_KEYWORDS = ["チクタクトレイン", "コチラドライビングスク
                   "サーキットホイール", "ピンキーバイク"]
 
 GEO_FILE = os.path.join(HERE, "data", "geo.json")
+NAMES_ZH = os.path.join(HERE, "data", "names-zh.json")
 
 REQS = 0
 
@@ -57,6 +58,26 @@ def load_geo() -> dict:
 
 
 GEO = load_geo()
+
+
+def norm_ja(s: str) -> str:
+    """設施名正規化：去空格（含全角）、括號附加、大小寫 → 用嚟對官方中文名。"""
+    s = re.sub(r"[\s　]+", "", s or "")
+    s = re.sub(r"[（(].*?[）)]", "", s)
+    return s.replace("・", "").lower()
+
+
+def load_names_zh() -> dict:
+    """官方繁中設施名（fetch_names.py 生成）→ {正規化日文名: {zh, src}}"""
+    try:
+        with open(NAMES_ZH, encoding="utf-8") as fh:
+            names = (json.load(fh) or {}).get("names") or {}
+        return {norm_ja(ja): v for ja, v in names.items()}
+    except Exception:
+        return {}
+
+
+ZH = load_names_zh()
 
 
 def get(url, timeout=30, retries=2):
@@ -264,6 +285,10 @@ def main() -> int:
     for a in attractions:
         a["isRoute"] = any(k.replace(" ", "").replace("・", "") in (a["name"] or "").replace(" ", "").replace("・", "")
                            for k in ROUTE_KEYWORDS)
+        z = ZH.get(norm_ja(a.get("name") or ""))
+        if z and z.get("zh"):
+            a["nameZh"] = z["zh"]
+            a["nameZhSrc"] = z.get("src") or ""
         g = GEO.get((a.get("no") or "").strip())
         if g:
             a["lat"], a["lon"] = g["lat"], g["lon"]
